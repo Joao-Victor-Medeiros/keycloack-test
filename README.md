@@ -77,6 +77,11 @@ KEYCLOAK_CLIENT_SECRET
 
 Não versione o secret diretamente no repositório.
 
+Crie um arquivo chamado `.env` na raiz do projeto e adicione a seguinte variável:
+
+```dotenv
+KEYCLOAK_CLIENT_SECRET="seu-client-secret"
+````
 ---
 
 ## 4. Configurar permissões da API
