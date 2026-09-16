@@ -59,7 +59,7 @@ Acesse:
 
 ```text
 Clients
-→ backend-api
+→ api-domain-dev
 → Credentials
 ```
 
@@ -90,7 +90,7 @@ Acesse:
 
 ```text
 Clients
-→ backend-api
+→ api-domain-dev
 → Service account roles
 → Assign role
 ```
@@ -156,8 +156,8 @@ Para validar a configuração, solicite um token:
 curl -X POST \
   http://localhost:8080/realms/keycloack-test/protocol/openid-connect/token \
   -H "Content-Type: application/x-www-form-urlencoded" \
-  -d "client_id= api-domain-dev" \
-  -d "client_secret=0oGmPhDzYhOR1xunp5w7THUjLqVqq261" \
+  -d "client_id=api-domain-dev" \
+  -d "client_secret=${KEYCLOAK_CLIENT_SECRET}" \
   -d "grant_type=client_credentials"
 ```
 
