@@ -22,7 +22,7 @@ public class KeycloakTokenService {
 
         var principal =
                 new UsernamePasswordAuthenticationToken(
-                        "backend-api",
+                        "api-domain-dev",
                         "N/A",
                         Collections.emptyList()
                 );
