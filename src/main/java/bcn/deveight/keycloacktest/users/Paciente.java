@@ -1,4 +1,4 @@
-package bcn.deveight.keycloacktest.user;
+package bcn.deveight.keycloacktest.users;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
