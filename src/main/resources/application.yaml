@@ -34,7 +34,3 @@ spring:
         provider:
           keycloak:
             token-uri: http://localhost:8080/realms/keycloack-test/protocol/openid-connect/token
-
-keycloak:
-  url: http://localhost:8080
-  realm: keycloack-test
