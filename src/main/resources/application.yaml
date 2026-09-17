@@ -24,7 +24,7 @@ spring:
     oauth2:
       client:
         registration:
-          keycloak-admin:
+          keycloak:
             provider: keycloak
             client-id: ${KEYCLOAK_CLIENT_ID:api-domain-dev}
             client-secret: ${KEYCLOAK_CLIENT_SECRET}

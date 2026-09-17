@@ -29,7 +29,7 @@ public class KeycloakTokenService {
 
         OAuth2AuthorizeRequest authorizeRequest =
                 OAuth2AuthorizeRequest
-                        .withClientRegistrationId("keycloak-admin")
+                        .withClientRegistrationId("keycloak")
                         .principal(principal)
                         .build();
 
