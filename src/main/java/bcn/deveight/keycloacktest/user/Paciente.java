@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class User {
+public class Paciente {
     @Id
     private Long id;
     private String perfil;
