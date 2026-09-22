@@ -16,7 +16,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/teste/keycloak/token",
-                                "/api/usuarios/**"
+                                "/users/signup-pacient"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
