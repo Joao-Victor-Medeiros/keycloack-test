@@ -1,6 +1,6 @@
 package bcn.deveight.keycloacktest.users;
 
-import bcn.deveight.keycloacktest.address.Endereco;
+import bcn.deveight.keycloacktest.address.Address;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
@@ -13,7 +13,7 @@ public class User {
     private Long id;
     private Profile profile;
     @Embedded
-    private Endereco address;
+    private Address address;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date birthday;
 }
