@@ -17,11 +17,14 @@ public class PacientService {
     public PacientResponse register(SignUpPacient request) {
         validateDuplicity(request);
 
-        UUID keycloakUserId = keycloakUserService.createUser(
-                request.toKeycloakSignUp()
-        );
+        // 1. Conversão dos dados para o DTO do Keycloak.
+        var keycloakUser = request.toKeycloakSignUp();
+
+        // 2. Criação do usuário no Keycloak e 3. recuperação do UUID retornado.
+        UUID keycloakUserId = keycloakUserService.createUser(keycloakUser);
 
         try {
+            // 4. Montagem da entidade local usando o UUID do Keycloak como ID.
             Pacient pacient = new Pacient();
             pacient.setId(keycloakUserId);
             pacient.setProfile(request.profile());
@@ -32,8 +35,14 @@ public class PacientService {
             pacient.setHistoricoSaude(request.healthHistory());
             pacient.setSolicitacoesAtendimento(request.serviceRequests());
 
-            return PacientResponse.from(pacientRepository.save(pacient));
+            // 5. Persistência no banco local.
+            Pacient savedPacient = pacientRepository.save(pacient);
+
+            // 6. Retorno da resposta contendo o UUID do Keycloak.
+            return PacientResponse.from(savedPacient);
         } catch (RuntimeException exception) {
+            // A transação local não desfaz a chamada externa ao Keycloak.
+            // Por isso, remove o usuário criado quando o save local falhar.
             keycloakUserService.deleteUser(keycloakUserId);
             throw exception;
         }

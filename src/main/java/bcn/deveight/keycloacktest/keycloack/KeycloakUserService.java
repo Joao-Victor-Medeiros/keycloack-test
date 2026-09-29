@@ -2,6 +2,7 @@ package bcn.deveight.keycloacktest.keycloack;
 
 import bcn.deveight.keycloacktest.keycloack.dto.KeycloakUserDTO;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -28,13 +29,17 @@ public class KeycloakUserService {
     }
 
     public UUID createUser(KeycloakUserDTO user) {
+        if (user == null) {
+            throw new IllegalArgumentException("Os dados do usuário não podem ser nulos.");
+        }
+
         URI location = restClient.post()
                 .uri("/admin/realms/{realm}/users", realm)
                 .headers(headers -> headers.setBearerAuth(tokenService.getAccessToken()))
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(user)
                 .exchange((request, response) -> {
-                    if (!response.getStatusCode().is2xxSuccessful()) {
+                    if (response.getStatusCode() != HttpStatus.CREATED) {
                         throw new IllegalStateException(
                                 "Falha ao criar usuário no Keycloak. Status: "
                                         + response.getStatusCode()
@@ -52,24 +57,34 @@ public class KeycloakUserService {
         return extractUserId(location);
     }
 
-//    public void deleteUser(UUID userId) {
-//        ResponseEntity<Void> response = restClient.delete()
-//                .uri("/admin/realms/{realm}/users/{userId}", realm, userId)
-//                .headers(headers -> headers.setBearerAuth(tokenService.getAccessToken()))
-//                .retrieve()
-//                .toBodilessEntity();
-//
-//        if (!response.getStatusCode().is2xxSuccessful()) {
-//            throw new IllegalStateException(
-//                    "Falha ao excluir usuário no Keycloak. Status: "
-//                            + response.getStatusCode()
-//            );
-//        }
-//    }
+    public void deleteUser(UUID userId) {
+        if (userId == null) {
+            throw new IllegalArgumentException("O ID do usuário não pode ser nulo.");
+        }
+
+        RestClient.RequestHeadersSpec<?> request = restClient.delete()
+                .uri("/admin/realms/{realm}/users/{userId}", realm, userId);
+
+        request.headers(headers ->
+                headers.setBearerAuth(tokenService.getAccessToken()));
+
+        request.retrieve().toBodilessEntity();
+    }
 
     private UUID extractUserId(URI location) {
         String path = location.getPath();
+        if (path == null || path.isBlank()) {
+            throw new IllegalStateException(
+                    "O Keycloak retornou um header Location sem caminho válido."
+            );
+        }
+
         String userId = path.substring(path.lastIndexOf('/') + 1);
+        if (userId.isBlank()) {
+            throw new IllegalStateException(
+                    "O Keycloak retornou um ID de usuário vazio no header Location."
+            );
+        }
 
         try {
             return UUID.fromString(userId);
