@@ -1,8 +1,10 @@
-package bcn.deveight.keycloacktest.users;
+package bcn.deveight.keycloacktest.users.pacients;
 
 import bcn.deveight.keycloacktest.address.Address;
 import bcn.deveight.keycloacktest.address.AddressData;
 import bcn.deveight.keycloacktest.keycloack.KeycloakUserService;
+import bcn.deveight.keycloacktest.users.dto.PacientResponse;
+import bcn.deveight.keycloacktest.users.dto.SignUpPacient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

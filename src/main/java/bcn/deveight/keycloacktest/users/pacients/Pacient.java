@@ -1,5 +1,6 @@
-package bcn.deveight.keycloacktest.users;
+package bcn.deveight.keycloacktest.users.pacients;
 
+import bcn.deveight.keycloacktest.users.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Table;
@@ -16,7 +17,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Pacient extends User{
+public class Pacient extends User {
     private Double income;
     @ElementCollection
     private List<String> interesses;

@@ -1,7 +1,8 @@
-package bcn.deveight.keycloacktest.users;
+package bcn.deveight.keycloacktest.users.dto;
 
 import bcn.deveight.keycloacktest.address.AddressData;
 import bcn.deveight.keycloacktest.keycloack.dto.KeycloakUserDTO;
+import bcn.deveight.keycloacktest.users.Profile;
 
 import java.util.Date;
 import java.util.List;

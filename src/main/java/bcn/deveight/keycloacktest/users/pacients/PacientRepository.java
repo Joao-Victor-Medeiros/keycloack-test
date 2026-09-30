@@ -1,4 +1,4 @@
-package bcn.deveight.keycloacktest.users;
+package bcn.deveight.keycloacktest.users.pacients;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

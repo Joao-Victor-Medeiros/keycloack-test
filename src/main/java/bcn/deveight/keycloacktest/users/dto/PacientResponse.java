@@ -1,4 +1,7 @@
-package bcn.deveight.keycloacktest.users;
+package bcn.deveight.keycloacktest.users.dto;
+
+import bcn.deveight.keycloacktest.users.pacients.Pacient;
+import bcn.deveight.keycloacktest.users.Profile;
 
 import java.util.UUID;
 
