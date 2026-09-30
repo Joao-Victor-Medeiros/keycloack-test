@@ -20,7 +20,7 @@ public record SignUpPacient(
         String healthHistory,
         List<String> serviceRequests
 ) {
-    public KeycloakUserDTO toKeycloackSignUp() {
+    public KeycloakUserDTO toKeycloakSignUp() {
         return new KeycloakUserDTO(
                 username,
                 email,
