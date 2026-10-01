@@ -1,5 +1,6 @@
 package bcn.deveight.keycloacktest.keycloack;
 
+import bcn.deveight.keycloacktest.exception.UserAlreadyExistsException;
 import bcn.deveight.keycloacktest.keycloack.dto.KeycloakUserDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -39,7 +40,11 @@ public class KeycloakUserService {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(user)
                 .exchange((request, response) -> {
-                    if (response.getStatusCode() != HttpStatus.CREATED) {
+                    if (response.getStatusCode().value() == HttpStatus.CONFLICT.value()) {
+                        throw new UserAlreadyExistsException();
+                    }
+
+                    if (response.getStatusCode().value() != HttpStatus.CREATED.value()) {
                         throw new IllegalStateException(
                                 "Falha ao criar usuário no Keycloak. Status: "
                                         + response.getStatusCode()
